@@ -1,5 +1,9 @@
 <?php
 // Datos de conexión a la base de datos
+header('Content-Type: application/json');
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type");
 $host = "localhost";
 $dbname = "gestion_prendas";
 $user = "postgres";

@@ -1,5 +1,6 @@
 <?php
 header('Content-Type: application/json');
+
 $response = array('success' => false, 'message' => ''); // Por defecto, éxito como falso
 
 $host = 'localhost'; // o el nombre del servidor si no es local
