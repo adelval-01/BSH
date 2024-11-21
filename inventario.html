@@ -65,7 +65,7 @@
         <!-- Formulario para añadir una nueva prenda -->
     <div id="newPrendaForm" style="display:none; margin-top:20px;">
         <h2>Añadir Nueva Prenda</h2>
-        <form action="nueva_prenda_iri.php" method="post">
+        <form action="nueva_prenda.php" method="post">
             <label for="tipo_prenda">Tipo de Prenda:</label><br>
             <input type="text" name="tipo_prenda" required><br>
             <label for="propietario">Propietario:</label><br>
@@ -225,7 +225,7 @@
                             };
 
                             // Enviar los datos actualizados al servidor
-                            fetch('http://localhost/actualizar_prenda_iri.php', {
+                            fetch('http://localhost/actualizar_prenda.php', {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json'
