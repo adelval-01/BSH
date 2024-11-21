@@ -1,1 +1,6 @@
+cirigoyen@LaptopIrigoyen:~/bsh$ sudo apt install apache2 php libapache2-mod-php postgresql php-pgsql
+cirigoyen@LaptopIrigoyen:~/bsh$ sudo service postgres start
+Failed to start postgres.service: Unit postgres.service not found.
+
+
 hola
