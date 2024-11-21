@@ -34,7 +34,7 @@ try {
 
         if ($stmt->execute()) {
             echo "Prenda añadida con éxito.";
-            header("Location: prendas_iri_1.html"); // Redirigir de vuelta a la página principal
+            header("Location: inventario.html"); // Redirigir de vuelta a la página principal
             exit;
         } else {
             echo "Error al añadir la prenda.";
