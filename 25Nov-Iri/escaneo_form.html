@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MI ARMARIO CONNECT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #newPrendaForm {
+            background-color: #f2f2f2;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            margin: 0 auto; /* Centra el formulario */
+            width: 80%; /* Ajusta el ancho según tus necesidades */
+        }
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button[type="submit"] {
+            background-color: #4CAF50; /* Verde */
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="newPrendaForm" style="display:none;">
+        <h2>¡Nueva Prenda Detectada!</h2>
+        <h3>Rellena los siguientes datos:</h3>
+        <form action="http://localhost/nueva_prenda.php" method="post">
+            <label for="codigo_inventario">Nombre para la prenda:</label><br>
+            <input type="text" name="codigo_inventario" required><br>
+            <label for="tipo_prenda">Tipo de Prenda:</label><br>
+            <input type="text" name="tipo_prenda" required><br>
+            <label for="propietario">Propietario:</label><br>
+            <input type="text" name="propietario" required><br>
+            <label for="color_material">Color y Material:</label><br>
+            <input type="text" name="color_material" required><br>
+            <!-- Agregar campos adicionales según tu base de datos -->
+            <button type="submit">Guardar Prenda</button>
+        </form>
+    </div>
+
+    <script>
+        // Llamar al script PHP y obtener los datos en formato JSON
+        fetch('http://localhost/prendas.php')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error en la respuesta de la red');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("Datos obtenidos:", data); // Imprimir datos en consola para verificar
+
+                if (Array.isArray(data) && data.length > 0) {
+                    const tableBody = document.getElementById('prendasTable').querySelector('tbody');
+
+                    // Limpiar el contenido anterior
+                    tableBody.innerHTML = '';
+
+                    // Iterar sobre cada prenda y crear una fila de tabla
+                    data.forEach(prenda => {
+                        const row = document.createElement('tr');
+
+                        // Fila de código de inventario (clickeable)
+                        const codeCell = document.createElement('td');
+                        codeCell.innerHTML = `<span class="toggle-btn">${prenda.codigo_inventario}</span>`;
+                        row.appendChild(codeCell);
+
+                        // Fila de detalles (oculta inicialmente)
+                        const detailsRow = document.createElement('tr');
+                        detailsRow.classList.add('details-row');
+                        detailsRow.innerHTML = `
+                            <td colspan="1">
+                                <strong>Tipo de Prenda:</strong> ${prenda.tipo_prenda} <br>
+                                <strong>Propietario:</strong> ${prenda.propietario} <br>
+                                <strong>Color y Material:</strong> ${prenda.color_material} <br>
+                                <strong>Departamento:</strong> ${prenda.departamento} <br>
+                                <strong>ID Propietario:</strong> ${prenda.id_propietario} <br>
+                                <strong>Alertas:</strong> ${prenda.alertas} <br>
+                                <strong>Ciclo Preferido:</strong> ${prenda.ciclo_preferido} <br>
+                                <strong>Restricciones:</strong> ${prenda.restricciones} <br>
+                                <strong>Temperatura:</strong> ${prenda.temperatura} <br>
+                                <strong>Ciclos Realizados:</strong> ${prenda.ciclos_realizados} <br>
+                                <strong>Fecha Último Lavado:</strong> ${prenda.fecha_ultimo_lavado} <br>
+                                <strong>Tipo de Ciclo:</strong> ${prenda.tipo_ciclo} <br>
+                                <strong>Nivel de Desgaste:</strong> ${prenda.nivel_desgaste} <br>
+                                <strong>ID Usuario:</strong> ${prenda.id_usuario} <br>
+                                <strong>Preferencias de Lavado:</strong> ${prenda.preferencias_lavado} <br>
+                                <strong>Tipo de Detergente:</strong> ${prenda.tipo_detergente} <br>
+                                <strong>Alergias:</strong> ${prenda.alergias} <br>
+                                <strong>Ubicación:</strong> ${prenda.ubicacion} <br>
+                                <strong>Desinfección:</strong> ${prenda.datos_desinfeccion} <br>
+                                <strong>Certificación de Limpieza:</strong> ${prenda.certificacion_limpieza} <br>
+                                <strong>RFCID:</strong> ${prenda.rfcid} <br>
+                                <button class="edit-btn">Editar</button>
+                                <div class="edit-form">
+                                    <h3>Editar Prenda</h3>
+                                    <form id="editForm">
+                                        <label for="tipo_prenda">Tipo de Prenda:</label><br>
+                                        <input type="text" id="tipo_prenda" value="${prenda.tipo_prenda}"><br>
+                                        <label for="propietario">Propietario:</label><br>
+                                        <input type="text" id="propietario" value="${prenda.propietario}"><br>
+                                        <label for="color_material">Color y Material:</label><br>
+                                        <input type="text" id="color_material" value="${prenda.color_material}"><br>
+                                        <label for="departamento">Departamento:</label><br>
+                                        <input type="text" id="departamento" value="${prenda.departamento}"><br>
+                                        <label for="alertas">Alertas:</label><br>
+                                        <input type="text" id="alertas" value="${prenda.alertas}"><br>
+                                        <label for="ciclo_preferido">Ciclo Preferido:</label><br>
+                                        <input type="text" id="ciclo_preferido" value="${prenda.ciclo_preferido}"><br>
+                                        <label for="restricciones">Restricciones:</label><br>
+                                        <input type="text" id="restricciones" value="${prenda.restricciones}"><br>
+                                        <label for="temperatura">Temperatura:</label><br>
+                                        <input type="text" id="temperatura" value="${prenda.temperatura}"><br>
+                                        <label for="ciclos_realizados">Ciclos Realizados:</label><br>
+                                        <input type="number" id="ciclos_realizados" value="${prenda.ciclos_realizados}"><br>
+                                        <label for="fecha_ultimo_lavado">Fecha Último Lavado:</label><br>
+                                        <input type="date" id="fecha_ultimo_lavado" value="${prenda.fecha_ultimo_lavado}"><br>
+                                        <label for="tipo_ciclo">Tipo de Ciclo:</label><br>
+                                        <input type="text" id="tipo_ciclo" value="${prenda.tipo_ciclo}"><br>
+                                        <label for="nivel_desgaste">Nivel de Desgaste:</label><br>
+                                        <input type="text" id="nivel_desgaste" value="${prenda.nivel_desgaste}"><br>
+                                        <label for="id_usuario">ID Usuario:</label><br>
+                                        <input type="text" id="id_usuario" value="${prenda.id_usuario}"><br>
+                                        <label for="preferencias_lavado">Preferencias de Lavado:</label><br>
+                                        <input type="text" id="preferencias_lavado" value="${prenda.preferencias_lavado}"><br>
+                                        <label for="tipo_detergente">Tipo de Detergente:</label><br>
+                                        <input type="text" id="tipo_detergente" value="${prenda.tipo_detergente}"><br>
+                                        <label for="alergias">Alergias:</label><br>
+                                        <input type="text" id="alergias" value="${prenda.alergias}"><br>
+                                        <label for="ubicacion">Ubicación:</label><br>
+                                        <input type="text" id="ubicacion" value="${prenda.ubicacion}"><br>
+                                        <label for="datos_desinfeccion">Desinfección:</label><br>
+                                        <input type="text" id="datos_desinfeccion" value="${prenda.datos_desinfeccion}"><br>
+                                        <label for="certificacion_limpieza">Certificación de Limpieza:</label><br>
+                                        <input type="text" id="certificacion_limpieza" value="${prenda.certificacion_limpieza}"><br>
+                                        <button type="submit">Guardar Cambios</button>
+                                    </form>
+                                </div>
+                            </td>
+                        `;
+                        tableBody.appendChild(row);
+                        tableBody.appendChild(detailsRow);
+
+                        // Acción de mostrar/ocultar detalles al hacer clic en el código de inventario
+                        codeCell.querySelector('.toggle-btn').addEventListener('click', function() {
+                            detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
+                        });
+
+                        // Acción de editar datos
+                        detailsRow.querySelector('.edit-btn').addEventListener('click', function() {
+                            const editForm = detailsRow.querySelector('.edit-form');
+                            editForm.style.display = editForm.style.display === 'none' ? 'block' : 'none';
+                        });
+
+                        // Guardar cambios al enviar el formulario
+                        detailsRow.querySelector('#editForm').addEventListener('submit', function(event) {
+                            event.preventDefault();
+
+                            const updatedData = {
+                                id: prenda.id,
+                                tipo_prenda: document.getElementById('tipo_prenda').value,
+                                propietario: document.getElementById('propietario').value,
+                                color_material: document.getElementById('color_material').value,
+                                departamento: document.getElementById('departamento').value,
+                                alertas: document.getElementById('alertas').value,
+                                ciclo_preferido: document.getElementById('ciclo_preferido').value,
+                                restricciones: document.getElementById('restricciones').value,
+                                temperatura: document.getElementById('temperatura').value,
+                                ciclos_realizados: document.getElementById('ciclos_realizados').value,
+                                fecha_ultimo_lavado: document.getElementById('fecha_ultimo_lavado').value,
+                                tipo_ciclo: document.getElementById('tipo_ciclo').value,
+                                nivel_desgaste: document.getElementById('nivel_desgaste').value,
+                                id_usuario: document.getElementById('id_usuario').value,
+                                preferencias_lavado: document.getElementById('preferencias_lavado').value,
+                                tipo_detergente: document.getElementById('tipo_detergente').value,
+                                alergias: document.getElementById('alergias').value,
+                                ubicacion: document.getElementById('ubicacion').value,
+                                datos_desinfeccion: document.getElementById('datos_desinfeccion').value,
+                                certificacion_limpieza: document.getElementById('certificacion_limpieza').value
+                            };
+
+                            // Enviar los datos actualizados al servidor
+                            fetch('http://localhost/actualizar_prenda.php', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(updatedData),
+                                mode: 'no-cors'  // Esto evitaría el error de CORS, pero no podrás leer la respuesta.
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    alert('Prenda actualizada con éxito');
+                                    window.location.href = 'inventario.html';;
+                                } else {
+                                    alert('Error al actualizar la prenda');
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error al actualizar:', error);
+                            });
+                        });
+                    });
+                } else {
+                    console.warn("No se recibieron datos o el formato es incorrecto.");
+                }
+            })
+            .catch(error => {
+                console.error('Error al obtener los datos:', error);
+            });
+
+            // Función para mostrar el formulario pre-llenado
+            function mostrarFormulario() {
+                document.getElementById('newPrendaForm').style.display = 'block';
+
+                // Aquí puedes prellenar los campos del formulario si quisieras,
+                // pero por ahora lo dejamos vacío para que el usuario ingrese los datos manualmente
+            }
+
+            // Cuando el usuario vuelve de escaneo_prenda.html, mostrar el formulario
+            window.addEventListener('load', function() {
+                const urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.has('showForm')) {
+                    mostrarFormulario();
+                }
+            });
+
+    </script>
+</body>
+</html>
