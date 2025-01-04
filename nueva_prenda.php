@@ -17,6 +17,7 @@ try {
     // Verificar si los datos fueron enviados
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // Obtener los datos del formulario
+        $rfcid = $_POST["rfcid"];
         $tipo_prenda = $_POST["tipo_prenda"];
         $propietario = $_POST["propietario"];
         $color_material = $_POST["color_material"];
@@ -26,8 +27,8 @@ try {
         // Añadir el resto de los campos necesarios
 
         // Insertar la prenda en la base de datos
-        $query = "INSERT INTO prendas (tipo_prenda, propietario, color_material, departamento, id_propietario, codigo_inventario)
-                  VALUES (:tipo_prenda, :propietario, :color_material, :departamento, :id_propietario, :codigo_inventario)";
+        $query = "INSERT INTO prendas (tipo_prenda, propietario, color_material, departamento, id_propietario, codigo_inventario, rfcid)
+                  VALUES (:tipo_prenda, :propietario, :color_material, :departamento, :id_propietario, :codigo_inventario, :rfcid)";
         $stmt = $pdo->prepare($query);
         $stmt->bindParam(":tipo_prenda", $tipo_prenda);
         $stmt->bindParam(":propietario", $propietario);
@@ -35,6 +36,7 @@ try {
         $stmt->bindParam(":departamento", $departamento);
         $stmt->bindParam(":id_propietario", $id_propietario);
         $stmt->bindParam(":codigo_inventario", $codigo_inventario);
+        $stmt->bindParam(":rfcid", $rfcid);
 
         if ($stmt->execute()) {
             echo "Prenda añadida con éxito.";

@@ -48,7 +48,8 @@
         <h3>Rellena los siguientes datos:</h3>
         <form action="http://localhost/nueva_prenda.php" method="post">
             <!-- Campo oculto para el EPC -->
-            <input type="hidden" name="epc" id="epc">
+            <label for="rfcid">ID del RFCID:</label><br>
+            <input type="text" name="epc" id="epc">
             <label for="codigo_inventario">Nombre para la prenda:</label><br>
             <input type="text" name="codigo_inventario" required><br>
             <label for="tipo_prenda">Tipo de Prenda:</label><br>
