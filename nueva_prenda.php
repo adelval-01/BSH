@@ -17,7 +17,7 @@ try {
     // Verificar si los datos fueron enviados
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // Obtener los datos del formulario
-        $rfcid = $_POST["rfcid"];
+        $rfcid = $_POST["epc"];
         $tipo_prenda = $_POST["tipo_prenda"];
         $propietario = $_POST["propietario"];
         $color_material = $_POST["color_material"];
