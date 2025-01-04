@@ -24,11 +24,18 @@ try {
         $departamento = $_POST["departamento"];
         $id_propietario = $_POST["id_propietario"];
         $codigo_inventario = $_POST["codigo_inventario"];
-        // Añadir el resto de los campos necesarios
+
+        // Manejar la imagen subida
+        if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
+            // Leer el contenido del archivo
+            $imagen = file_get_contents($_FILES['imagen']['tmp_name']);
+        } else {
+            $imagen = null; // En caso de que no se suba ninguna imagen
+        }
 
         // Insertar la prenda en la base de datos
-        $query = "INSERT INTO prendas (tipo_prenda, propietario, color_material, departamento, id_propietario, codigo_inventario, rfcid)
-                  VALUES (:tipo_prenda, :propietario, :color_material, :departamento, :id_propietario, :codigo_inventario, :rfcid)";
+        $query = "INSERT INTO prendas (tipo_prenda, propietario, color_material, departamento, id_propietario, codigo_inventario, rfcid, imagen)
+                  VALUES (:tipo_prenda, :propietario, :color_material, :departamento, :id_propietario, :codigo_inventario, :rfcid, :imagen)";
         $stmt = $pdo->prepare($query);
         $stmt->bindParam(":tipo_prenda", $tipo_prenda);
         $stmt->bindParam(":propietario", $propietario);
@@ -37,6 +44,7 @@ try {
         $stmt->bindParam(":id_propietario", $id_propietario);
         $stmt->bindParam(":codigo_inventario", $codigo_inventario);
         $stmt->bindParam(":rfcid", $rfcid);
+        $stmt->bindParam(":imagen", $imagen, PDO::PARAM_LOB);
 
         if ($stmt->execute()) {
             echo "Prenda añadida con éxito.";

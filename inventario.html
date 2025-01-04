@@ -36,7 +36,7 @@
         th, td {
             padding: 15px;
             text-align: left;
-            border: 1px solid #ddd;
+            border: none;
         }
 
         th {
@@ -44,6 +44,20 @@
             color: white;
             text-transform: uppercase;
         }
+        
+        td img {
+            display: block;
+            width: 75px;
+            height: auto; /* Mantiene la proporción */
+        }
+
+        td {
+            display: flex; /* Habilita diseño en línea para imagen y texto */
+            align-items: center; /* Centra verticalmente texto e imagen */
+            gap: 10px; /* Espacio entre elementos */
+        }
+
+
 
         tr:nth-child(even) {
             background-color: #f9f9f9;
@@ -223,17 +237,41 @@
                     // Iterar sobre cada prenda y crear una fila de tabla
                     data.forEach(prenda => {
                         const row = document.createElement('tr');
+                        
+                        const combinedCell = document.createElement('td');
+                        combinedCell.style.display = "flex"; // Aplica flexbox
+                        combinedCell.style.alignItems = "center"; // Centra verticalmente
+                        combinedCell.style.gap = "10px"; // Espacio entre la imagen y el texto
 
-                        // Fila de código de inventario (clickeable)
-                        const codeCell = document.createElement('td');
-                        codeCell.innerHTML = `<span class="toggle-btn">${prenda.codigo_inventario}</span>`;
-                        row.appendChild(codeCell);
+                        // Imagen
+                        if (prenda.imagen) {
+                            const img = document.createElement('img');
+                            img.src = `data:image/png;base64,${prenda.imagen}`;
+                            img.alt = `Imagen de ${prenda.tipo_prenda}`;
+                            img.style.maxWidth = "100px";
+                            img.style.maxHeight = "100px";
+                            combinedCell.appendChild(img);
+                        } else {
+                            combinedCell.textContent = "Sin imagen";
+                        }
+
+                        // Texto del código
+                        const codeSpan = document.createElement('span');
+                        codeSpan.textContent = prenda.codigo_inventario;
+                        codeSpan.className = "toggle-btn";
+                        combinedCell.appendChild(codeSpan);
+
+                        // Añadir celda a la fila
+                        row.appendChild(combinedCell);
+
+                        // Añadir la fila a la tabla (asegúrate de tener una referencia a la tabla)
+                    
 
                         // Fila de detalles (oculta inicialmente)
                         const detailsRow = document.createElement('tr');
                         detailsRow.classList.add('details-row');
                         detailsRow.innerHTML = `
-                            <td colspan="1">
+                            <tr colspan="2">
                                 <strong>Tipo de Prenda:</strong> ${prenda.tipo_prenda} <br>
                                 <strong>Propietario:</strong> ${prenda.propietario} <br>
                                 <strong>Color y Material:</strong> ${prenda.color_material} <br>
@@ -300,13 +338,13 @@
                                         <button type="submit">Guardar Cambios</button>
                                     </form>
                                 </div>
-                            </td>
+                            </tr>
                         `;
                         tableBody.appendChild(row);
                         tableBody.appendChild(detailsRow);
 
                         // Acción de mostrar/ocultar detalles al hacer clic en el código de inventario
-                        codeCell.querySelector('.toggle-btn').addEventListener('click', function() {
+                        combinedCell.querySelector('.toggle-btn').addEventListener('click', function() {
                             detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
                         });
 

@@ -46,7 +46,7 @@
     <div id="newPrendaForm" style="display:none;">
         <h2>¡Nueva Prenda Detectada!</h2>
         <h3>Rellena los siguientes datos:</h3>
-        <form action="http://localhost/nueva_prenda.php" method="post">
+        <form action="http://localhost/nueva_prenda.php" method="post" enctype="multipart/form-data">
             <!-- Campo oculto para el EPC -->
             <label for="epc">ID del EPC:</label><br>
             <input type="text" name="epc" id="epc" required><br>
@@ -58,7 +58,8 @@
             <input type="text" name="propietario" required><br>
             <label for="color_material">Color y Material:</label><br>
             <input type="text" name="color_material" required><br>
-            <!-- Agregar campos adicionales según tu base de datos -->
+            <label for="imagen">Subir Imagen:</label><br>
+            <input type="file" name="imagen" accept="image/*"><br>
             <button type="submit">Guardar Prenda</button>
         </form>
     </div>
