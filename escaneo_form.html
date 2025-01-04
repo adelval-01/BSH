@@ -46,7 +46,7 @@
     <div id="newPrendaForm" style="display:none;">
         <h2>¡Nueva Prenda Detectada!</h2>
         <h3>Rellena los siguientes datos:</h3>
-        <form action="http://localhost/nueva_prenda.php" method="post">
+        <form action="http://localhost/nueva_prenda.php" method="post" enctype="multipart/form-data">
             <label for="codigo_inventario">Nombre para la prenda:</label><br>
             <input type="text" name="codigo_inventario" required><br>
             <label for="tipo_prenda">Tipo de Prenda:</label><br>
@@ -55,7 +55,8 @@
             <input type="text" name="propietario" required><br>
             <label for="color_material">Color y Material:</label><br>
             <input type="text" name="color_material" required><br>
-            <!-- Agregar campos adicionales según tu base de datos -->
+            <label for="imagen">Subir Imagen:</label><br>
+            <input type="file" name="imagen" accept="image/*"><br>
             <button type="submit">Guardar Prenda</button>
         </form>
     </div>
