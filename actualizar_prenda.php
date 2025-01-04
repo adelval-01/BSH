@@ -17,7 +17,8 @@ if (isset($inputData['id'])) {
     $id = $inputData['id'];
     $tipo_prenda = $inputData['tipo_prenda'];
     $propietario = $inputData['propietario'];
-    $color_material = $inputData['color_material'];
+    $color = $inputData['color'];
+    $material = $inputData['material'];
     $departamento = $inputData['departamento'];
     $alertas = $inputData['alertas'];
     $ciclo_preferido = $inputData['ciclo_preferido'];
@@ -42,7 +43,7 @@ if (isset($inputData['id'])) {
 
         // Preparar y ejecutar la consulta SQL de actualización
         $sql = "UPDATE prendas 
-                SET tipo_prenda=:tipo_prenda, propietario=:propietario, color_material=:color_material, 
+                SET tipo_prenda=:tipo_prenda, propietario=:propietario, color=:color, material=:material, 
                     departamento=:departamento, alertas=:alertas, ciclo_preferido=:ciclo_preferido, 
                     restricciones=:restricciones, temperatura=:temperatura, ciclos_realizados=:ciclos_realizados, 
                     fecha_ultimo_lavado=:fecha_ultimo_lavado, tipo_ciclo=:tipo_ciclo, nivel_desgaste=:nivel_desgaste, 
@@ -56,7 +57,8 @@ if (isset($inputData['id'])) {
         // Asociar los valores a la consulta
         $stmt->bindParam(':tipo_prenda', $tipo_prenda);
         $stmt->bindParam(':propietario', $propietario);
-        $stmt->bindParam(':color_material', $color_material);
+        $stmt->bindParam(':color', $color);
+        $stmt->bindParam(':material', $material);
         $stmt->bindParam(':departamento', $departamento);
         $stmt->bindParam(':alertas', $alertas);
         $stmt->bindParam(':ciclo_preferido', $ciclo_preferido);

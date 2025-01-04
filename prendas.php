@@ -4,7 +4,7 @@ header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 
 // Configura los datos de tu conexión a la base de datos
-$host = 'localhost'; // o el nombre del servidor si no es local
+$host = '172.20.10.2'; // o el nombre del servidor si no es local
 $db = 'gestion_prendas'; // el nombre de la base de datos
 $user = 'postgres'; // tu usuario de la base de datos
 $pass = '1234'; // tu contraseña de la base de datos
@@ -47,15 +47,16 @@ try {
                 // Obtiene los otros datos del formulario
                 $tipo_prenda = $_POST['tipo_prenda'];
                 $propietario = $_POST['propietario'];
-                $color_material = $_POST['color_material'];
+                $color = $_POST['color'];
+                $material = $_POST['material'];
                 $departamento = $_POST['departamento'];
                 $id_propietario = $_POST['id_propietario'];
                 $codigo_inventario = $_POST['codigo_inventario'];
 
                 // Inserta los datos en la base de datos, incluyendo la ruta de la imagen
-                $stmt = $pdo->prepare("INSERT INTO prendas (tipo_prenda, propietario, color_material, departamento, id_propietario, codigo_inventario, imagen_prenda) 
+                $stmt = $pdo->prepare("INSERT INTO prendas (tipo_prenda, propietario, color, material, departamento, id_propietario, codigo_inventario, imagen_prenda) 
                                        VALUES (?, ?, ?, ?, ?, ?, ?)");
-                $stmt->execute([$tipo_prenda, $propietario, $color_material, $departamento, $id_propietario, $codigo_inventario, $targetFile]);
+                $stmt->execute([$tipo_prenda, $propietario, $color, $material, $departamento, $id_propietario, $codigo_inventario, $targetFile]);
 
                 echo json_encode(['success' => 'Prenda y imagen guardados con éxito']);
             } else {

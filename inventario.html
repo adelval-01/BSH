@@ -192,15 +192,18 @@
     <div id="newPrendaForm">
         <h2>¡¡Nueva Prenda Detectada!!</h2>
         <h2>Rellena sus datos:</h2>
-        <form action="http://localhost/nueva_prenda.php" method="post">
+        <form action="http://172.20.10.2/nueva_prenda.php" method="post">
             <label for="tipo_prenda">Tipo de Prenda:</label>
             <input type="text" name="tipo_prenda" required>
 
             <label for="propietario">Propietario:</label>
             <input type="text" name="propietario" required>
 
-            <label for="color_material">Color y Material:</label>
-            <input type="text" name="color_material" required>
+            <label for="color">Color:</label>
+            <input type="text" name="color" required>
+
+            <label for="material">Color y Material:</label>
+            <input type="text" name="material" required>
 
             <label for="departamento">Departamento:</label>
             <input type="text" name="departamento" required>
@@ -218,7 +221,7 @@
 
     <script>
         // Llamar al script PHP y obtener los datos en formato JSON
-        fetch('http://localhost/prendas.php')
+        fetch('http://172.20.10.2/prendas.php')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Error en la respuesta de la red');
@@ -274,7 +277,8 @@
                             <tr colspan="2">
                                 <strong>Tipo de Prenda:</strong> ${prenda.tipo_prenda} <br>
                                 <strong>Propietario:</strong> ${prenda.propietario} <br>
-                                <strong>Color y Material:</strong> ${prenda.color_material} <br>
+                                <strong>Color:</strong> ${prenda.color} <br>
+                                <strong>Material:</strong> ${prenda.material} <br>
                                 <strong>Departamento:</strong> ${prenda.departamento} <br>
                                 <strong>ID Propietario:</strong> ${prenda.id_propietario} <br>
                                 <strong>Alertas:</strong> ${prenda.alertas} <br>
@@ -301,8 +305,10 @@
                                         <input type="text" id="tipo_prenda" value="${prenda.tipo_prenda}"><br>
                                         <label for="propietario">Propietario:</label><br>
                                         <input type="text" id="propietario" value="${prenda.propietario}"><br>
-                                        <label for="color_material">Color y Material:</label><br>
-                                        <input type="text" id="color_material" value="${prenda.color_material}"><br>
+                                        <label for="color">Color:</label><br>
+                                        <input type="text" id="color" value="${prenda.color}"><br>
+                                        <label for="material">Material:</label><br>
+                                        <input type="text" id="material" value="${prenda.material}"><br>
                                         <label for="departamento">Departamento:</label><br>
                                         <input type="text" id="departamento" value="${prenda.departamento}"><br>
                                         <label for="alertas">Alertas:</label><br>
@@ -362,7 +368,8 @@
                                 id: prenda.id,
                                 tipo_prenda: document.getElementById('tipo_prenda').value,
                                 propietario: document.getElementById('propietario').value,
-                                color_material: document.getElementById('color_material').value,
+                                color: document.getElementById('color').value,
+                                material: document.getElementById('material').value,
                                 departamento: document.getElementById('departamento').value,
                                 alertas: document.getElementById('alertas').value,
                                 ciclo_preferido: document.getElementById('ciclo_preferido').value,
@@ -382,7 +389,7 @@
                             };
 
                             // Enviar los datos actualizados al servidor
-                            fetch('http://localhost/actualizar_prenda.php', {
+                            fetch('http://172.20.10.2/actualizar_prenda.php', {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json'

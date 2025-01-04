@@ -4,7 +4,7 @@ header('Content-Type: application/json');
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
-$host = "localhost";
+$host = "172.20.10.2";
 $dbname = "gestion_prendas";
 $user = "postgres";
 $password = "1234";
@@ -20,7 +20,8 @@ try {
         $rfcid = $_POST["epc"];
         $tipo_prenda = $_POST["tipo_prenda"];
         $propietario = $_POST["propietario"];
-        $color_material = $_POST["color_material"];
+        $color = $_POST["color"];
+        $material = $_POST["material"];
         $departamento = $_POST["departamento"];
         $id_propietario = $_POST["id_propietario"];
         $codigo_inventario = $_POST["codigo_inventario"];
@@ -34,12 +35,13 @@ try {
         }
 
         // Insertar la prenda en la base de datos
-        $query = "INSERT INTO prendas (tipo_prenda, propietario, color_material, departamento, id_propietario, codigo_inventario, rfcid, imagen)
-                  VALUES (:tipo_prenda, :propietario, :color_material, :departamento, :id_propietario, :codigo_inventario, :rfcid, :imagen)";
+        $query = "INSERT INTO prendas (tipo_prenda, propietario, color, material, departamento, id_propietario, codigo_inventario, rfcid, imagen)
+                  VALUES (:tipo_prenda, :propietario, :color, :material, :departamento, :id_propietario, :codigo_inventario, :rfcid, :imagen)";
         $stmt = $pdo->prepare($query);
         $stmt->bindParam(":tipo_prenda", $tipo_prenda);
         $stmt->bindParam(":propietario", $propietario);
-        $stmt->bindParam(":color_material", $color_material);
+        $stmt->bindParam(":color", $color);
+        $stmt->bindParam(":material", $material);
         $stmt->bindParam(":departamento", $departamento);
         $stmt->bindParam(":id_propietario", $id_propietario);
         $stmt->bindParam(":codigo_inventario", $codigo_inventario);
