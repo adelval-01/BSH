@@ -47,6 +47,8 @@
         <h2>¡Nueva Prenda Detectada!</h2>
         <h3>Rellena los siguientes datos:</h3>
         <form action="http://localhost/nueva_prenda.php" method="post">
+            <!-- Campo oculto para el EPC -->
+            <input type="hidden" name="epc" id="epc">
             <label for="codigo_inventario">Nombre para la prenda:</label><br>
             <input type="text" name="codigo_inventario" required><br>
             <label for="tipo_prenda">Tipo de Prenda:</label><br>
@@ -245,6 +247,15 @@
                 const urlParams = new URLSearchParams(window.location.search);
                 if (urlParams.has('showForm')) {
                     mostrarFormulario();
+                    // Obtener el EPC de la URL
+                    const epc = urlParams.get('epc');
+                    if (epc) {
+                        // Prellenar el campo correspondiente con el EPC
+                        const epcInput = document.querySelector('input[name="epc"]');
+                        if (epcInput) {
+                            epcInput.value = epc;
+                        }
+                    }
                 }
             });
 
