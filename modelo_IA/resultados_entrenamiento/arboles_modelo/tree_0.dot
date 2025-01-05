@@ -1,0 +1,21 @@
+digraph Tree {
+node [shape=box, style="filled, rounded", color="black", fontname="helvetica"] ;
+edge [fontname="helvetica"] ;
+0 [label=<Algodon &le; 70.035<br/>gini = 0.623<br/>samples = 5057<br/>value = [3143, 178, 22, 3629, 1028]<br/>class = Mixto>, fillcolor="#ebebfc"] ;
+1 [label=<Poliester &le; 49.98<br/>gini = 0.396<br/>samples = 3048<br/>value = [0, 178, 22, 3629, 1028]<br/>class = Mixto>, fillcolor="#7b79ed"] ;
+0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
+2 [label=<Seda &le; 29.995<br/>gini = 0.1<br/>samples = 2408<br/>value = [0, 178, 22, 3629, 0]<br/>class = Mixto>, fillcolor="#4744e6"] ;
+1 -> 2 ;
+3 [label=<Lana &le; 50.415<br/>gini = 0.012<br/>samples = 2295<br/>value = [0, 0, 22, 3629, 0]<br/>class = Mixto>, fillcolor="#3d3ae5"] ;
+2 -> 3 ;
+4 [label=<gini = 0.0<br/>samples = 2282<br/>value = [0, 0, 0, 3629, 0]<br/>class = Mixto>, fillcolor="#3c39e5"] ;
+3 -> 4 ;
+5 [label=<gini = 0.0<br/>samples = 13<br/>value = [0, 0, 22, 0, 0]<br/>class = Lana>, fillcolor="#39e5c5"] ;
+3 -> 5 ;
+6 [label=<gini = 0.0<br/>samples = 113<br/>value = [0, 178, 0, 0, 0]<br/>class = Delicados>, fillcolor="#7be539"] ;
+2 -> 6 ;
+7 [label=<gini = 0.0<br/>samples = 640<br/>value = [0, 0, 0, 0, 1028]<br/>class = Sintéticos>, fillcolor="#e539c0"] ;
+1 -> 7 ;
+8 [label=<gini = 0.0<br/>samples = 2009<br/>value = [3143, 0, 0, 0, 0]<br/>class = Algodón>, fillcolor="#e58139"] ;
+0 -> 8 [labeldistance=2.5, labelangle=-45, headlabel="False"] ;
+}

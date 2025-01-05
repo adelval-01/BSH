@@ -1,0 +1,33 @@
+digraph Tree {
+node [shape=box, style="filled, rounded", color="black", fontname="helvetica"] ;
+edge [fontname="helvetica"] ;
+0 [label=<Lana &le; 0.005<br/>gini = 0.623<br/>samples = 5058<br/>value = [3236, 203, 36, 3561, 964]<br/>class = Mixto>, fillcolor="#f2f1fd"] ;
+1 [label=<Nylon &le; 0.66<br/>gini = 0.491<br/>samples = 3021<br/>value = [3236.0, 0.0, 0.0, 632.0, 938.0]<br/>class = Algodón>, fillcolor="#f0b489"] ;
+0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
+2 [label=<Algodon &le; 70.035<br/>gini = 0.033<br/>samples = 2044<br/>value = [3236, 0, 0, 55, 0]<br/>class = Algodón>, fillcolor="#e5833c"] ;
+1 -> 2 ;
+3 [label=<gini = 0.0<br/>samples = 38<br/>value = [0, 0, 0, 55, 0]<br/>class = Mixto>, fillcolor="#3c39e5"] ;
+2 -> 3 ;
+4 [label=<gini = 0.0<br/>samples = 2006<br/>value = [3236, 0, 0, 0, 0]<br/>class = Algodón>, fillcolor="#e58139"] ;
+2 -> 4 ;
+5 [label=<Poliester &le; 49.96<br/>gini = 0.472<br/>samples = 977<br/>value = [0, 0, 0, 577, 938]<br/>class = Sintéticos>, fillcolor="#f5b3e7"] ;
+1 -> 5 ;
+6 [label=<gini = 0.0<br/>samples = 377<br/>value = [0, 0, 0, 577, 0]<br/>class = Mixto>, fillcolor="#3c39e5"] ;
+5 -> 6 ;
+7 [label=<gini = 0.0<br/>samples = 600<br/>value = [0, 0, 0, 0, 938]<br/>class = Sintéticos>, fillcolor="#e539c0"] ;
+5 -> 7 ;
+8 [label=<Poliester &le; 50.005<br/>gini = 0.155<br/>samples = 2037<br/>value = [0.0, 203.0, 36.0, 2929.0, 26.0]<br/>class = Mixto>, fillcolor="#4d4be7"] ;
+0 -> 8 [labeldistance=2.5, labelangle=-45, headlabel="False"] ;
+9 [label=<Seda &le; 29.99<br/>gini = 0.141<br/>samples = 2020<br/>value = [0, 203, 36, 2929, 0]<br/>class = Mixto>, fillcolor="#4c49e7"] ;
+8 -> 9 ;
+10 [label=<Lana &le; 50.13<br/>gini = 0.024<br/>samples = 1890<br/>value = [0, 0, 36, 2929, 0]<br/>class = Mixto>, fillcolor="#3e3be5"] ;
+9 -> 10 ;
+11 [label=<gini = 0.0<br/>samples = 1869<br/>value = [0, 0, 0, 2929, 0]<br/>class = Mixto>, fillcolor="#3c39e5"] ;
+10 -> 11 ;
+12 [label=<gini = 0.0<br/>samples = 21<br/>value = [0, 0, 36, 0, 0]<br/>class = Lana>, fillcolor="#39e5c5"] ;
+10 -> 12 ;
+13 [label=<gini = 0.0<br/>samples = 130<br/>value = [0, 203, 0, 0, 0]<br/>class = Delicados>, fillcolor="#7be539"] ;
+9 -> 13 ;
+14 [label=<gini = 0.0<br/>samples = 17<br/>value = [0, 0, 0, 0, 26]<br/>class = Sintéticos>, fillcolor="#e539c0"] ;
+8 -> 14 ;
+}

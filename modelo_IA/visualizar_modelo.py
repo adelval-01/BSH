@@ -25,21 +25,26 @@ y_class_pred = clf.predict(X_test)
 y_reg_pred = reg.predict(X_test)
 
 # Función 1: Visualizar un árbol del bosque
-def visualizar_arbol():
-    tree = clf.estimators_[0]
-    export_graphviz(
-        tree,
-        out_file='tree.dot',
-        feature_names=X_test.columns,
-        class_names=le.classes_,
-        filled=True,
-        rounded=True,
-        special_characters=True
-    )
-    call(['dot', '-Tpng', 'tree.dot', '-o', 'tree.png', '-Gdpi=300'])
+def visualizar_arboles():
+    # Iterar sobre todos los árboles en el Random Forest
+    for i, tree in enumerate(clf.estimators_):
+        # Exportar cada árbol a un archivo .dot
+        export_graphviz(
+            tree,
+            out_file=f'tree_{i}.dot',  # Guardar cada árbol con un nombre único
+            feature_names=X_test.columns,
+            class_names=le.classes_,
+            filled=True,
+            rounded=True,
+            special_characters=True
+        )
 
-    img = Image(filename='tree.png')
-    display(img)
+        # Convertir el archivo .dot a .png usando Graphviz
+        call(['dot', '-Tpng', f'tree_{i}.dot', '-o', f'tree_{i}.png', '-Gdpi=300'])
+
+        # Mostrar la imagen (si usas Jupyter, si no, omite esta línea)
+        img = Image(filename=f'tree_{i}.png')
+        display(img)
 
 # Función 2: Importancia de características
 def importancia_caracteristicas():
@@ -95,8 +100,8 @@ def distribucion_errores():
 
 # Llamar a todas las funciones
 if __name__ == '__main__':
-    visualizar_arbol()
-    importancia_caracteristicas()
-    matriz_confusion()
-    comparacion_real_predicho()
-    distribucion_errores()
+    visualizar_arboles()
+    # importancia_caracteristicas()
+    # matriz_confusion()
+    # comparacion_real_predicho()
+    # distribucion_errores()
