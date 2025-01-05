@@ -2,7 +2,7 @@
 header("Content-Type: application/json");
 
 // Configuración de la base de datos
-$db_host = "localhost";
+$db_host = "172.20.10.2";
 $db_name = "gestion_prendas";
 $db_user = "postgres";
 $db_password = "1234";

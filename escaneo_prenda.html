@@ -55,7 +55,7 @@
                 <h1>Por favor, escanee una nueva prenda</h1>
             `;
             // Llama al endpoint /read-id automáticamente
-            fetch('http://localhost:5000/read-id')
+            fetch('http://172.20.10.2:5000/read-id')
                 .then(response => {
                     if (!response.ok) {
                         throw new Error("Error al ejecutar el script");

@@ -4,7 +4,7 @@ header('Content-Type: application/json');
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
-$host = "localhost";
+$host = "172.20.10.2";
 $dbname = "gestion_prendas";
 $user = "postgres";
 $password = "1234";

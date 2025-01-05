@@ -46,7 +46,7 @@
     <div id="newPrendaForm" style="display:none;">
         <h2>¡Nueva Prenda Detectada!</h2>
         <h3>Rellena los siguientes datos:</h3>
-        <form action="http://localhost/nueva_prenda.php" method="post" enctype="multipart/form-data">
+        <form action="http://172.20.10.2/nueva_prenda.php" method="post" enctype="multipart/form-data">
             <!-- Campo oculto para el EPC -->
             <label for="epc">ID del EPC:</label><br>
             <input type="text" name="epc" id="epc" required><br>
@@ -68,7 +68,7 @@
 
     <script>
         // Llamar al script PHP y obtener los datos en formato JSON
-        fetch('http://localhost/prendas.php')
+        fetch('http://172.20.10.2/prendas.php')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Error en la respuesta de la red');
@@ -212,7 +212,7 @@
                             };
 
                             // Enviar los datos actualizados al servidor
-                            fetch('http://localhost/actualizar_prenda.php', {
+                            fetch('http://172.20.10.2/actualizar_prenda.php', {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json'
