@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cargando...</title>
+  <link rel="stylesheet" href="estilos.css"> <!-- Enlace al archivo CSS -->
+</head>
+<body>
+    <!-- Mensaje inicial -->
+    <div id="resultContainer">
+        <h1>Por favor, introduzca las prendas en la lavadora</h1>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const resultContainer = document.getElementById('resultContainer');
+    
+            // Mensaje inicial
+            resultContainer.innerHTML = `
+                <h1>Por favor, introduzca las prendas en la lavadora</h1>
+            `;
+    
+            // Llama al endpoint /read-multi-epcs automáticamente
+            fetch('http://172.20.10.2:5000/read-multi-id')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Error al ejecutar el script");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Verifica si el JSON tiene la clave 'epcs' y no está vacío
+                    if (data.epcs && data.epcs.length > 0) {
+                        // Mostrar los EPCs recibidos en la página web mientras se consulta a la base de datos
+                        const epcsList = data.epcs.map(epc => `<li>${epc}</li>`).join('');
+                        resultContainer.innerHTML = `
+                            <h1><strong>EPCs detectados:</strong></h1>
+                            <ul>${epcsList}</ul>
+                            <p>Consultando prendas en la base de datos...</p>
+                        `;
+    
+                        // Enviar los EPCs al servidor PHP para consultar los nombres de las prendas
+                        fetch('query_prendas.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ epcs: data.epcs }), // Enviar los EPCs detectados al PHP
+                        })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error("Error al consultar las prendas.");
+                                }
+                                return response.json();
+                            })
+                            .then(prendasData => {
+                                if (prendasData.prendas && prendasData.prendas.length > 0) {
+                                    // Mostrar los nombres de las prendas en la página web
+                                    const prendasList = prendasData.prendas.map(prenda => `<li>${prenda}</li>`).join('');
+                                    resultContainer.innerHTML = `
+                                        <h1><strong>Prendas identificadas:</strong></h1>
+                                        <ul>${prendasList}</ul>
+                                    `;
+    
+                                    // Cambiar el fondo a verde y mostrar "OK!" después de 4 segundos
+                                    setTimeout(() => {
+                                        document.body.style.backgroundColor = '#4CAF50'; // Cambiar fondo a verde
+                                        resultContainer.innerHTML = `
+                                            <h1 style="color: white; font-size: 2em; text-align: center;">Eligiendo el programa más adecuado</h1>
+                                            <div class="loader"></div>
+                                        `;
+                                            // <!-- Aquí va el loader (animación) -->
+                                    }, 2500);
+                                } else {
+                                    // Si no se encontraron prendas asociadas
+                                    resultContainer.innerHTML = `
+                                        <h1 style="color: red;">No se encontraron prendas asociadas a los EPCs detectados.</h1>
+                                    `;
+                                    document.body.style.backgroundColor = '#FF5252'; // Fondo rojo
+                                }
+                            })
+                            .catch(error => {
+                                console.error("Error al consultar las prendas:", error);
+                                resultContainer.innerHTML = `
+                                    <h1 style="color: red;">Error al consultar las prendas en la base de datos.</h1>
+                                `;
+                            });
+                    } else {
+                        // Si no hay EPCs, mostrar un mensaje de error
+                        resultContainer.innerHTML = `
+                            <h1 style="color: red;">No se detectaron EPCs.</h1>
+                        `;
+                        document.body.style.backgroundColor = '#FF5252'; // Fondo rojo
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("Hubo un error al escanear las prendas: " + error.message);
+                });
+        });
+    </script>
+    
+
+</body>
+</html>
