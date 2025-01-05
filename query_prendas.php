@@ -26,16 +26,24 @@ if (empty($epcs)) {
 }
 
 try {
-    // Consulta para obtener los nombres de las prendas asociadas
+    // Consulta para obtener los códigos de inventario y materiales asociados
     $placeholders = implode(",", array_fill(0, count($epcs), "?"));
-    $sql = "SELECT codigo_inventario FROM prendas WHERE rfcid IN ($placeholders)";
+    $sql = "SELECT codigo_inventario, material FROM prendas WHERE rfcid IN ($placeholders)";
     $stmt = $conn->prepare($sql);
     $stmt->execute($epcs);
 
     // Obtener los resultados
-    $prendas = $stmt->fetchAll(PDO::FETCH_COLUMN);
+    $prendas = [];
+    $materiales = [];
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $prendas[] = $row['codigo_inventario'];
+        $materiales[] = $row['material'];
+    }
 
-    echo json_encode(["prendas" => $prendas]);
+    echo json_encode([
+        "prendas" => $prendas,
+        "materiales" => $materiales
+    ]);
 } catch (PDOException $e) {
     echo json_encode(["error" => "Error al consultar la base de datos: " . $e->getMessage()]);
 }
