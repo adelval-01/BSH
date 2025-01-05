@@ -4,9 +4,9 @@ import joblib
 import pandas as pd
 
 # Primero cargamos los modelos
-clf = joblib.load('modelo_clasificacion.pkl')  
-reg = joblib.load('modelo_regresion.pkl')  
-le = joblib.load('codificador_programa.pkl') 
+clf = joblib.load('modelo_IA/modelo_clasificacion.pkl')  
+reg = joblib.load('modelo_IA/modelo_regresion.pkl')  
+le = joblib.load('modelo_IA/codificador_programa.pkl') 
 
 def calcular_porcentajes(materiales):
     contador = Counter(materiales)
@@ -74,7 +74,7 @@ def predecir_lavado(df):
 
 
 # Ejemplo de entrada
-materiales = ['Lana', 'Lana', 'Lana', 'Lana', 'Algodon', 'Poliester', 'Lana']
+materiales = ['Algodon', 'Algodon', 'Lana', 'Lana', 'Algodon', 'Poliester', 'Lana']
 
 # Preparar los datos para la predicción
 input_df = preparar_datos(materiales)
