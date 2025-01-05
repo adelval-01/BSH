@@ -22,7 +22,7 @@
             `;
     
             // Llama al endpoint /read-multi-epcs automáticamente
-            fetch('http://172.20.10.2:5000/read-multi-id')
+            fetch('http://localhost:5000/read-multi-id')
                 .then(response => {
                     if (!response.ok) {
                         throw new Error("Error al ejecutar el script");
@@ -36,8 +36,9 @@
                         const epcsList = data.epcs.map(epc => `<li>${epc}</li>`).join('');
                         resultContainer.innerHTML = `
                             <h1><strong>EPCs detectados:</strong></h1>
-                            <ul>${epcsList}</ul>
+                            <ul style="font-size: 1.5em;">${epcsList}</ul>
                             <p>Consultando prendas en la base de datos...</p>
+
                         `;
     
                         // Enviar los EPCs al servidor PHP para consultar los nombres de las prendas
@@ -60,22 +61,24 @@
                                     const prendasList = prendasData.prendas.map(prenda => `<li>${prenda}</li>`).join('');
                                     resultContainer.innerHTML = `
                                         <h1><strong>Prendas identificadas:</strong></h1>
-                                        <ul>${prendasList}</ul>
+                                        <ul style="font-size: 1.5em;">${prendasList}</ul>
                                     `;
     
                                     // Cambiar el fondo a verde y mostrar "OK!" después de 4 segundos
                                     setTimeout(() => {
                                         document.body.style.backgroundColor = '#4CAF50'; // Cambiar fondo a verde
                                         resultContainer.innerHTML = `
-                                            <h1 style="color: white; font-size: 2em; text-align: center;">Eligiendo el programa más adecuado</h1>
-                                            <div class="loader"></div>
+                                            <div class="loader-container">
+                                                <h1 style="color: black; font-size: 1.8em; font-weight: bold;">Eligiendo el programa más adecuado</h1>
+                                                <div class="loader"></div>
+                                            </div>
                                         `;
-                                        fetch('http://localhost:5000/predict-program', {
+                                        fetch('http://localhost:5001/predict-program', {
                                             method: 'POST',
                                             headers: {
                                                 'Content-Type': 'application/json',
                                             },
-                                            body: JSON.stringify({ materiales: prendasData.prendas }), // Pasar el vector de materiales
+                                            body: JSON.stringify({ materiales: prendasData.materiales }), // Pasar el vector de materiales
                                         })
                                             .then(response => {
                                                 if (!response.ok) {
@@ -86,9 +89,11 @@
                                             .then(prediccion => {
                                                 // Mostrar el resultado de la predicción en la página web
                                                 const { Programa, Agua, Jabon, Temperatura } = prediccion;
+                                                document.body.style.backgroundColor = '#FFFFFF'; // Fondo blanco
+
                                                 resultContainer.innerHTML = `
-                                                    <h1 style="color: white; font-size: 2em; text-align: center;">Programa Seleccionado</h1>
-                                                    <ul style="color: white; font-size: 1.5em;">
+                                                    <h1 style="color: black; font-size: 2em; text-align: center;">Programa Seleccionado</h1>
+                                                    <ul style="color: black; font-size: 1.5em;">
                                                         <li><strong>Programa:</strong> ${Programa}</li>
                                                         <li><strong>Agua:</strong> ${Agua.toFixed(2)} L</li>
                                                         <li><strong>Jabón:</strong> ${Jabon.toFixed(2)} ml</li>

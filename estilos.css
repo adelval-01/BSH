@@ -1,13 +1,24 @@
-/* From Uiverse.io by Shoh2008 */ 
+/* Estilo general del body */
 body {
   margin: 0;
   height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
   background-color: #f4f4f4;
 }
 
+/* Contenedor principal que incluye el texto y el loader */
+.loader-container {
+  display: flex;
+  flex-direction: column; /* Organizar en columna */
+  justify-content: center; /* Centrar contenido verticalmente */
+  align-items: center; /* Centrar contenido horizontalmente */
+  height: 100vh; /* Ocupa todo el alto de la pantalla */
+  width: 100%; /* Ocupa todo el ancho de la pantalla */
+}
+
+/* Loader animado */
 .loader {
     width: 120px;
     height: 150px;
@@ -24,9 +35,9 @@ body {
     border-radius: 6%;
     animation: shake 3s ease-in-out infinite;
     transform-origin: 60px 180px;
-  }
+}
   
-  .loader:before {
+.loader:before {
     content: "";
     position: absolute;
     left: 5px;
@@ -36,9 +47,9 @@ body {
     background: #aaa;
     border-radius: 0 0 4px 4px;
     box-shadow: 102px 0 #aaa;
-  }
+}
   
-  .loader:after {
+.loader:after {
     content: "";
     position: absolute;
     width: 95px;
@@ -58,9 +69,9 @@ body {
     border: 10px solid #DDD;
     box-shadow: 0 0 0 4px #999 inset, 0 0 6px 6px #0004 inset;
     animation: spin 3s ease-in-out infinite;
-  }
+}
   
-  @keyframes spin {
+@keyframes spin {
     0% {
       transform: rotate(0deg)
     }
@@ -76,9 +87,9 @@ body {
     100% {
       transform: rotate(1800deg)
     }
-  }
+}
   
-  @keyframes shake {
+@keyframes shake {
     65%, 80%, 88%, 96% {
       transform: rotate(0.5deg)
     }
@@ -90,4 +101,4 @@ body {
     0%, 50%, 100% {
       transform: rotate(0)
     }
-  }
+}

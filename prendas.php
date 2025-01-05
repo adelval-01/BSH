@@ -4,7 +4,7 @@ header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 
 // Configura los datos de tu conexión a la base de datos
-$host = '172.20.10.2'; // o el nombre del servidor si no es local
+$host = 'localhost'; // o el nombre del servidor si no es local
 $db = 'gestion_prendas'; // el nombre de la base de datos
 $user = 'postgres'; // tu usuario de la base de datos
 $pass = '1234'; // tu contraseña de la base de datos

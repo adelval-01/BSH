@@ -195,7 +195,7 @@
     <div id="newPrendaForm">
         <h2>¡¡Nueva Prenda Detectada!!</h2>
         <h2>Rellena sus datos:</h2>
-        <form action="http://172.20.10.2/nueva_prenda.php" method="post">
+        <form action="http://localhost/nueva_prenda.php" method="post">
             <label for="tipo_prenda">Tipo de Prenda:</label>
             <input type="text" name="tipo_prenda" required>
 
@@ -224,7 +224,7 @@
 
     <script>
         // Llamar al script PHP y obtener los datos en formato JSON
-        fetch('http://172.20.10.2/prendas.php')
+        fetch('http://localhost/prendas.php')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Error en la respuesta de la red');
@@ -392,7 +392,7 @@
                             };
 
                             // Enviar los datos actualizados al servidor
-                            fetch('http://172.20.10.2/actualizar_prenda.php', {
+                            fetch('http://localhost/actualizar_prenda.php', {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json'

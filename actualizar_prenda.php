@@ -3,7 +3,7 @@ header('Content-Type: application/json');
 
 $response = array('success' => false, 'message' => ''); // Por defecto, éxito como falso
 
-$host = '172.20.10.2'; // o el nombre del servidor si no es local
+$host = 'localhost'; // o el nombre del servidor si no es local
 $db = 'gestion_prendas'; // el nombre de la base de datos
 $user = 'postgres'; // tu usuario de la base de datos
 $pass = '1234'; // tu contraseña de la base de datos
