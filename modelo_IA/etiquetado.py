@@ -92,10 +92,10 @@ if __name__ == "__main__":
     
     # 3. Calcular nuevas columnas
     print("Procesando datos...")
-    datos_limpiados['Programa Recomendado'] = datos_limpiados.apply(recomendar_programa, axis=1)
-    datos_limpiados['Cantidad Agua (L)'] = datos_limpiados.apply(calcular_agua, axis=1)
-    datos_limpiados['Cantidad Jabon (ml)'] = datos_limpiados.apply(calcular_jabon, axis=1)
-    datos_limpiados['Temperatura (°C)'] = datos_limpiados.apply(calcular_temperatura, axis=1)
+    datos_limpiados['Programa'] = datos_limpiados.apply(recomendar_programa, axis=1)
+    datos_limpiados['Agua'] = datos_limpiados.apply(calcular_agua, axis=1)
+    datos_limpiados['Jabon'] = datos_limpiados.apply(calcular_jabon, axis=1)
+    datos_limpiados['Temperatura'] = datos_limpiados.apply(calcular_temperatura, axis=1)
     
     # 4. Exportar datos procesados
     datos_limpiados.to_csv(OUTPUT_FILE_PATH, index=False)
